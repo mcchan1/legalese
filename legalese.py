@@ -3,18 +3,20 @@
 	Things to do: 
 	-highlight replaced words
 	-accept pdf and ms word docs
-	-better way to make dictionary not case sensitive
+	-better way to make dictionary not case sensitive, as opposed to making the 
+	search case insensitive. 
 	"""
+import re
 
 # user inputs the document they want translated	
-fin = raw_input("Please type the full path of the document you want translated from legalese to plain english. >>>")
+text = raw_input("Please type the full path of the document you want translated from legalese to plain english. >>>")
 
-#fin = '/Users/michaelchan/Desktop/legalsample.txt'
+#text = '/Users/michaelchan/Desktop/legalsample.txt'
 
 # document is read
-fin = open(fin).read() 			
+text = open(text).read() 			
 print "This is the original text..."
-print fin
+print text
 print '\n'
 print "Now, here is the new text with out legalese.."
 print '\n'
@@ -109,26 +111,15 @@ legal_dict = {'ab initio':'from the start',
 'witnesseth':'this agreement shows/between',
 }
 
-#a function to iterate through the user inputed document
-def replace_legalese(text, legal_dict):	
-		
-	for key, value in legal_dict.iteritems(): 
-		# is there a better way to make legal_dict not case sensitive??
-		text = text.lower() 
-		text = text.replace(key,value)
-		
-	return text
+# Using a case insensitive search for legalese as opposed to a case insensitive dictionary.  Have to import regular expressions.  
 
-#inputs the user's document and run it through the function
-new_text = replace_legalese(fin, legal_dict)
+def replace(legal_dict,text):
+        keys = legal_dict.keys()
+        for i in keys:
+                exp = re.compile(i, re.I)
+                text = re.sub(exp, legal_dict[i], text)
+        return text
 
-print new_text
-
-# where to implement this class???
-# class CaseInsensitiveDict(legal_dict):
-# 	def __setitem__(self, key, value):
-# 		super(CaseInsensitiveDict, self).__setitem__(key.lower(), value)
-# 		
-# 	def __getitem__(self, key):
-# 		return super(CaseInsensitiveDict, self).__getitem__(key.lower())
+text = replace(legal_dict,text)
+print text
 	
