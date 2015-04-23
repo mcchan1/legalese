@@ -1,7 +1,7 @@
 """ A function to iterate through a legal document and replace it with plain
 	English
 	Things to do: 
-	-highlight replaced words
+	-highlight legalese that is replaced with English
 	-accept pdf and ms word docs
 	-better way to make dictionary not case sensitive, as opposed to making the 
 	search case insensitive. 

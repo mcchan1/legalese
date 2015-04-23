@@ -1,4 +1,3 @@
-legalese
 Legalese to English translator
 ========
 
